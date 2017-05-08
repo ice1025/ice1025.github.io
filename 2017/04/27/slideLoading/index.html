@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>手机端页面下滑异步加载数据 | 我是标题 | 工作并不是生活的全部，多陪陪家人，多爱爱她。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="滑动异步加载">
+    <meta name="description" content="手机端页面下滑异步加载数据
+
+需求：手机端滑动异步加载产品数据
+
+12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061//当前pageNovar pageNo = parseInt(&apos;$&amp;#123;pageNo&amp;#125;&apos;)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="手机端页面下滑异步加载数据">
+<meta property="og:url" content="http://imice.me/2017/04/27/slideLoading/index.html">
+<meta property="og:site_name" content="我是标题">
+<meta property="og:description" content="手机端页面下滑异步加载数据
+
+需求：手机端滑动异步加载产品数据
+
+12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061//当前pageNovar pageNo = parseInt(&apos;$&amp;#123;pageNo&amp;#125;&apos;)">
+<meta property="og:updated_time" content="2017-05-08T07:15:08.317Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="手机端页面下滑异步加载数据">
+<meta name="twitter:description" content="手机端页面下滑异步加载数据
+
+需求：手机端滑动异步加载产品数据
+
+12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061//当前pageNovar pageNo = parseInt(&apos;$&amp;#123;pageNo&amp;#125;&apos;)">
+    
+        <link rel="alternate" type="application/atom+xml" title="我是标题" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.6.6">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">ice</h5>
+          <a href="mailto:ice1025ow@gmail.com" title="ice1025ow@gmail.com" class="mail">ice1025ow@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/ice1025" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">手机端页面下滑异步加载数据</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">手机端页面下滑异步加载数据</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-04-27T02:27:32.310Z" itemprop="datePublished" class="page-time">
+  2017-04-27
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+<article id="post-slideLoading"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">手机端页面下滑异步加载数据</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-04-27 10:27:32" datetime="2017-04-27T02:27:32.310Z"  itemprop="datePublished">2017-04-27</time>
+
+            
+
+
+            
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p><strong>手机端页面下滑异步加载数据</strong></p>
+<blockquote>
+<p>需求：手机端滑动异步加载产品数据</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//当前pageNo</span></div><div class="line"><span class="keyword">var</span> pageNo = <span class="built_in">parseInt</span>(<span class="string">'$&#123;pageNo&#125;'</span>);</div><div class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	query(<span class="string">'first'</span>);<span class="comment">//首次加载</span></div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">//设置加载状态</span></div><div class="line"><span class="keyword">var</span> loading = <span class="literal">false</span>;</div><div class="line">Zepto(<span class="function"><span class="keyword">function</span>(<span class="params">$</span>)</span>&#123;</div><div class="line">	$(<span class="built_in">window</span>).scroll(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">		<span class="comment">//默认滑动到底部开始</span></div><div class="line">         <span class="keyword">if</span>(($(<span class="built_in">window</span>).scrollTop() + $(<span class="built_in">window</span>).height() &gt; $(<span class="built_in">document</span>).height()<span class="number">-10</span>)</div><div class="line">                 &amp;&amp; loading )&#123;</div><div class="line">             loading=<span class="literal">false</span>;</div><div class="line">             pageNo++;</div><div class="line">             query(<span class="string">"then"</span>);</div><div class="line">         &#125;</div><div class="line">     &#125;);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">query</span>(<span class="params">type</span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> url = <span class="string">"$&#123;ctx&#125;/product/getJson.action?pageNo="</span>+pageNo;</div><div class="line">	$loading.show();<span class="comment">//显示加载中效果</span></div><div class="line">	$.ajax(&#123;</div><div class="line">		<span class="attr">url</span>:url,</div><div class="line">		<span class="attr">success</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">			loading = <span class="literal">true</span>;<span class="comment">//标识</span></div><div class="line">			<span class="keyword">if</span>(data == <span class="literal">null</span>)&#123;</div><div class="line">				pageNo--;</div><div class="line">				$.loading.hide();</div><div class="line">				$(<span class="string">'.nomore-products'</span>).show();<span class="comment">//数据加载完成，无更多</span></div><div class="line">				loading = <span class="literal">false</span>;</div><div class="line">			&#125;<span class="keyword">else</span>&#123;</div><div class="line">				<span class="keyword">if</span>(type == <span class="string">'then'</span>)&#123;<span class="comment">//滑动加载</span></div><div class="line">					<span class="keyword">if</span>(data.length == <span class="number">0</span>)&#123;</div><div class="line">						pageNo--;</div><div class="line">						$loading.hide();</div><div class="line">						$(<span class="string">'.nomore-products'</span>).show();</div><div class="line">						loading = <span class="literal">false</span>;</div><div class="line">						<span class="keyword">return</span> <span class="string">""</span>;</div><div class="line">					&#125;</div><div class="line">				&#125;</div><div class="line">				$.each(data,<span class="function"><span class="keyword">function</span>(<span class="params">i,item</span>)</span>&#123;</div><div class="line">					<span class="comment">//获取json数据拼接html</span></div><div class="line">					$productList.append( </div><div class="line">					<span class="string">'&lt;figcaption&gt;'</span></div><div class="line">					+<span class="string">'&lt;span&gt;'</span> + item.productTitle + <span class="string">'&lt;/span&gt;'</span></div><div class="line">					+<span class="string">'&lt;span&gt;'</span> + item.productId+ <span class="string">'&lt;/span&gt;'</span></div><div class="line">					+<span class="string">'&lt;/figcaption&gt;'</span></div><div class="line">					);</div><div class="line">					$loading.hide();	</div><div class="line">				&#125;);</div><div class="line">				</div><div class="line">			&#125;		</div><div class="line">		&#125;,</div><div class="line">		<span class="attr">error</span>:<span class="function"><span class="keyword">function</span>(<span class="params">XMLHttpRequest,textStatus,errorThrown</span>)</span>&#123;</div><div class="line">			loading=<span class="literal">true</span>;</div><div class="line">            pageNo--;</div><div class="line">            alert(<span class="string">"数据加载出错"</span>+textStatus);</div><div class="line">		&#125;</div><div class="line">	&#125;);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>如果首次加载不想用异步方式，可以在<code>pageNo</code>声明之后直接<code>++</code>，直接加载第二页，<br>首次可以用从后台直接返回的list数据，异步加载时再返回<code>json</code>即可</p>
+</blockquote>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+
+        
+        版权声明：<a href="/2017/04/27/slideLoading/" target="_blank" rel="external">http://imice.me/2017/04/27/slideLoading/</a>
+        
+    </div>
+    <footer>
+        <a href="http://imice.me">
+            <img src="/img/avatar.jpg" alt="ice">
+            ice
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/滑动异步加载/">滑动异步加载</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://imice.me/2017/04/27/slideLoading/&title=《手机端页面下滑异步加载数据》 — 我是标题&pic=http://imice.me/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://imice.me/2017/04/27/slideLoading/&title=《手机端页面下滑异步加载数据》 — 我是标题&source=ice's blog" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://imice.me/2017/04/27/slideLoading/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《手机端页面下滑异步加载数据》 — 我是标题&url=http://imice.me/2017/04/27/slideLoading/&via=http://imice.me" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://imice.me/2017/04/27/slideLoading/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/05/04/mysql_elsticsearch/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">利用mysql触发器创建变更表推送数据到elasticsearch</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/04/13/zhengze/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">正则表达式匹配url</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+    <div id="cloud-tie-wrapper" class="comments cloud-tie-wrapper"></div>
+    <script>
+    var cloudTieConfig = {
+        url: 'http://imice.me/2017/04/27/slideLoading/index.html',
+        sourceId: 'slideLoading',
+        productKey: '2d4f5492db574fe0b8c3261b28351805',
+        target: 'cloud-tie-wrapper',
+        pcFiles: [
+            '/css/cloudTie/pc.css?v=1.6.6',
+            '/js/cloudTie/pc.min.js?v=1.6.6',
+        ],
+        mobileFiles: [
+            '/css/cloudTie/mobile.css?v=1.6.6',
+            '/js/cloudTie/mobile.min.js?v=1.6.6'
+        ]
+    };
+    </script>
+    <script src="/js/cloudTie/loader.min.js?v=1.6.6"></script>
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        恭喜你获得给我打钱的机会(●ˇ∀ˇ●))
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo">indigo</a></span>
+            <span><a href="http://imice.me" target="_blank">ice</a> &copy; 2016 - 2017</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://imice.me/2017/04/27/slideLoading/&title=《手机端页面下滑异步加载数据》 — 我是标题&pic=http://imice.me/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://imice.me/2017/04/27/slideLoading/&title=《手机端页面下滑异步加载数据》 — 我是标题&source=ice's blog" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://imice.me/2017/04/27/slideLoading/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《手机端页面下滑异步加载数据》 — 我是标题&url=http://imice.me/2017/04/27/slideLoading/&via=http://imice.me" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://imice.me/2017/04/27/slideLoading/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABxUlEQVR42u3ay24DIRAEwPz/TyfXSFFI98ASWypOlrWPYg8jpuHjIx6f38bP/9dXJv8cHri4uNvcz+VIrtm5Kzfg4uLe5/5WMWa/18/5jbu+FxcX95W57Wqk/QS4uLjvyE0Q6+n9W93FxcUtuUlzsr6rDVYe79VwcXE3uO1i5Ynfj+S7uLi4I+4sBm3DjvUTirfj4uJe4eYFpaUkLc3svbi4uPe57bGJtpy1wcofKQ4uLu4D3FlwmRzPapuoZOmDi4t7h9vGpvvRSZt+bG2o4OLibnNPFbKdMGUdneDi4t7h5q1OPvtZ8xN9Glxc3CvcotkIilF75WzyuLi4d7ht3NmGI+026rBXw8XFPcptKe1Birb5ieouLi7uw9wkuFw/rt1WmYWwuLi4N7k7W63ti2eN1rFDGLi4uCW3PSRxagFUl0tcXNzr3FkI0rY6WwsgXFzch7mzstIepEg2aA8EH7i4uIe4+VgvO/LQpF1IDSeDi4u7zd0PRpNDGMnBr2gyuLi4F7l5oUmWLJd6NVxc3BfjtjFKG6fi4uK+OzdvYGbl7MASBxcXd8TNQ888wkiux8XFfU1uHpjODljk5aydMC4u7gPcL6RNUsH/y/unAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.6.6"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.6.6" async></script>
+
+
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '瞅你咋地';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你瞅啥';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

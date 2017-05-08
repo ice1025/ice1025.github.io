@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>利用mysql触发器创建变更表推送数据到elasticsearch | 我是标题 | 工作并不是生活的全部，多陪陪家人，多爱爱她。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="mysql,elasticsearch">
+    <meta name="description" content="利用mysql触发器创建变更表推送数据到elasticsearch
+
+需求：某项业务需要用到模糊查询，数据库用的mysql，%search%类似这样的索引无法生效，导致搜索特别吃力看到了这位老铁的利用mysql触发器创建变更表推送数据到elasticsearch原文链接：http://www.toozy.cn/mysql-trigger-elasticsearch/ 按照这个思路，决定采用elas">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用mysql触发器创建变更表推送数据到elasticsearch">
+<meta property="og:url" content="http://imice.me/2017/05/04/mysql_elsticsearch/index.html">
+<meta property="og:site_name" content="我是标题">
+<meta property="og:description" content="利用mysql触发器创建变更表推送数据到elasticsearch
+
+需求：某项业务需要用到模糊查询，数据库用的mysql，%search%类似这样的索引无法生效，导致搜索特别吃力看到了这位老铁的利用mysql触发器创建变更表推送数据到elasticsearch原文链接：http://www.toozy.cn/mysql-trigger-elasticsearch/ 按照这个思路，决定采用elas">
+<meta property="og:image" content="http://img.blog.csdn.net/20160627215020397">
+<meta property="og:image" content="http://i2.muimg.com/567571/afc47af5169c886b.jpg">
+<meta property="og:image" content="http://i1.piimg.com/567571/60d95a0902792d22.jpg">
+<meta property="og:image" content="http://i2.muimg.com/567571/99f3c56848f04129.jpg">
+<meta property="og:image" content="http://i1.piimg.com/567571/ee437359401c3124.jpg">
+<meta property="og:image" content="http://i4.buimg.com/567571/80e2c5b6cd9084d5.jpg">
+<meta property="og:image" content="http://i1.piimg.com/567571/85dc129ec4bdf0e7.jpg">
+<meta property="og:image" content="http://i4.buimg.com/567571/b67606047f499ecc.gif">
+<meta property="og:updated_time" content="2017-05-08T07:15:13.743Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="利用mysql触发器创建变更表推送数据到elasticsearch">
+<meta name="twitter:description" content="利用mysql触发器创建变更表推送数据到elasticsearch
+
+需求：某项业务需要用到模糊查询，数据库用的mysql，%search%类似这样的索引无法生效，导致搜索特别吃力看到了这位老铁的利用mysql触发器创建变更表推送数据到elasticsearch原文链接：http://www.toozy.cn/mysql-trigger-elasticsearch/ 按照这个思路，决定采用elas">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20160627215020397">
+    
+        <link rel="alternate" type="application/atom+xml" title="我是标题" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.6.6">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">ice</h5>
+          <a href="mailto:ice1025ow@gmail.com" title="ice1025ow@gmail.com" class="mail">ice1025ow@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/ice1025" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">利用mysql触发器创建变更表推送数据到elasticsearch</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">利用mysql触发器创建变更表推送数据到elasticsearch</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-05-04T03:23:26.174Z" itemprop="datePublished" class="page-time">
+  2017-05-04
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#创建增删改的触发器"><span class="post-toc-text">创建增删改的触发器</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#elasticsearch安装"><span class="post-toc-text">elasticsearch安装</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#elasticsearch插件安装"><span class="post-toc-text">elasticsearch插件安装</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#服务器实时读取变更数据，并写入elasticsearch"><span class="post-toc-text">服务器实时读取变更数据，并写入elasticsearch</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#获取elsearch实例"><span class="post-toc-text">获取elsearch实例</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#数据初始化"><span class="post-toc-text">原有数据初始化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#向elsearch中插入数据"><span class="post-toc-text">向elsearch中插入数据</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#从elsearch中删除数据"><span class="post-toc-text">从elsearch中删除数据</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#轮询数据库"><span class="post-toc-text">轮询数据库</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#测试"><span class="post-toc-text">测试</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-mysql_elsticsearch"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">利用mysql触发器创建变更表推送数据到elasticsearch</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-05-04 11:23:26" datetime="2017-05-04T03:23:26.174Z"  itemprop="datePublished">2017-05-04</time>
+
+            
+
+
+            
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p><strong>利用mysql触发器创建变更表推送数据到elasticsearch</strong></p>
+<blockquote>
+<p>需求：某项业务需要用到模糊查询，数据库用的mysql，<code>%search%</code>类似这样的索引无法生效，导致搜索特别吃力<br>看到了这位老铁的<code>利用mysql触发器创建变更表推送数据到elasticsearch</code><br>原文链接：<a href="http://www.toozy.cn/mysql-trigger-elasticsearch/" target="_blank" rel="external">http://www.toozy.cn/mysql-trigger-elasticsearch/</a><br> 按照这个思路，决定采用elasticsearch来替代mysql提供搜索服务。</p>
+<p>搜索了挺多mysql和elasticsearch之间数据同步的方式，<br>这是常见的几款插件，大神总结了这几款插件的优缺点<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img.blog.csdn.net/20160627215020397" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure><br>anyaway,这几款插件对我帮助不大，我只需要这一块儿业务即可，有想研究的可以查看原文<br><a href="http://blog.csdn.net/laoyang360/article/details/51771621" target="_blank" rel="external">http://blog.csdn.net/laoyang360/article/details/51771621</a><br>于是便有了如下的解决方案：<br> 将要搜索的数据填充到elasticsearch里面并保持更新，原文列出了几种解决方案</p>
+<ul>
+<li>在应用层面当出现增删改时顺便或提交到队列来更新索引。</li>
+<li>解析mysql的binlog，来更新索引。</li>
+<li>利用mysql的触发器来将变更信息写入一个表或外部队列来更新索引。</li>
+</ul>
+<p>（1）出于不增加业务复杂度的考虑，放弃了在应用处理的方案。<br>（2）第二种binblog方式，原文说是出于运维部署，以及对于binlog方式如何处理单表的顾虑，放弃了binlog方案，这货不是今天的主题先略过，回头再研究…<br>（3）最后采取的是利用mysql触发器来将变更插入一张表，通过计划任务处理变更表里的数据<br>变更表方案<br>给要操作的表增加增删改的触发器，将变更表id写入一张change表，服务器实时读取变更表数据，同步更新elsearch对应索引。</p>
+</blockquote>
+<p><strong><h1 id="创建增删改的触发器">创建增删改的触发器</h1></strong></p>
+<blockquote>
+<p>一张测试表test用来模拟我们要操作的表，<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://i2.muimg.com/567571/afc47af5169c886b.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure><br>一张用来保存test表记录变更的test_change表，<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://i1.piimg.com/567571/60d95a0902792d22.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure><br>change_type用来保存test表触发的类型，(增删改)<br>change_id用来保存更新字段的id<br>laster_id 持久化一个最后更新的id标识<br>接下来创建三个简单的触发器<br><figure class="highlight monkey"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#增加</span></div><div class="line">CREATE TRIGGER test_trigger_insert AFTER INSERT ON test </div><div class="line"><span class="keyword">FOR</span> EACH ROW INSERT INTO test_change VALUES(<span class="literal">NULL</span>,now(),<span class="comment">'INSERT',NEW.id,null);</span><span class="meta"></span></div><div class="line">#修改</div><div class="line">CREATE TRIGGER test_trigger_update AFTER UPDATE ON test</div><div class="line"><span class="keyword">FOR</span> EACH ROW INSERT INTO test_change VALUES(<span class="literal">NULL</span>,now(),<span class="comment">'UPDATE',NEW.id,null);</span><span class="meta"></span></div><div class="line">#删除</div><div class="line">CREATE TRIGGER test_trigger_delete AFTER DELETE ON test</div><div class="line"><span class="keyword">FOR</span> EACH ROW INSERT INTO test_change VALUES(<span class="literal">NULL</span>,now(),<span class="comment">'DELETE',OLD.id,null);</span></div></pre></td></tr></table></figure></p>
+</blockquote>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://i2.muimg.com/567571/99f3c56848f04129.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<blockquote>
+<p>触发器正常的工作，记录下了变更表的操作记录</p>
+</blockquote>
+<p><strong><h1 id="elasticsearch安装">elasticsearch安装</h1></strong></p>
+<blockquote>
+<p>当时装的过程中遇到不少坑…</p>
+<ul>
+<li>elasticsearch下载。下载完成后是一个压缩包，在需要安装的目录解压</li>
+<li>配置环境变量path，指向elsearch目录下的bin</li>
+<li>jdk安装。。。</li>
+<li>增加环境变量ES_HEAP_SIZE，值为：256m（或者512m）。这是分配最大和最小的存储容量。</li>
+<li>找到bin文件夹下的<code>elasticsearch.bat</code>，双击运行。在bin的同级目录就会生成data和logs文件夹。<br>执行后可以看到类似如下界面：<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://i1.piimg.com/567571/ee437359401c3124.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+验证是否安装成功，在浏览器地址栏上输入：<a href="http://localhost:9200" target="_blank" rel="external">http://localhost:9200</a><br>显示一串json数据，显示你的elsearch的信息<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">"status"</span> : <span class="number">200</span>,</div><div class="line">  <span class="attr">"name"</span> : <span class="string">"Arabian Knight"</span>,</div><div class="line">  <span class="attr">"cluster_name"</span> : <span class="string">"elasticsearch"</span>,</div><div class="line">  <span class="attr">"version"</span> : &#123;</div><div class="line">    <span class="attr">"number"</span> : <span class="string">"1.4.4"</span>,</div><div class="line">    <span class="attr">"build_hash"</span> : <span class="string">"c88f77ffc81301dfa9dfd81ca2232f09588bd512"</span>,</div><div class="line">    <span class="attr">"build_timestamp"</span> : <span class="string">"2015-02-19T13:05:36Z"</span>,</div><div class="line">    <span class="attr">"build_snapshot"</span> : <span class="literal">false</span>,</div><div class="line">    <span class="attr">"lucene_version"</span> : <span class="string">"4.10.3"</span></div><div class="line">  &#125;,</div><div class="line">  <span class="attr">"tagline"</span> : <span class="string">"You Know, for Search"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<p><strong><h2 id="elasticsearch插件安装">elasticsearch插件安装</h2></strong></p>
+<blockquote>
+<p>我只装了一个可视化的head插件，有其他需求可以自行安装插件<br>安装命令：<code>D:\elasticsearch\bin&gt;plugin -install mobz/elasticsearch-head</code><br>安装完成后在<code>D:\elasticsearch\plugins</code>目录下会有<code>head</code>的文件夹<br>打开head_site\index.html(或者在浏览器地址栏输入<a href="http://localhost:9200/_plugin/head/" target="_blank" rel="external">http://localhost:9200/_plugin/head/</a>),<br>会显示如下界面：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://i4.buimg.com/567571/80e2c5b6cd9084d5.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+</blockquote>
+<p><strong><h1 id="服务器实时读取变更数据，并写入elasticsearch">服务器实时读取变更数据，并写入elasticsearch</h1></strong></p>
+<p></p><h2 id="获取elsearch实例">获取elsearch实例</h2><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span>  </div><div class="line">       <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.elasticsearch<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>  </div><div class="line">       <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>elasticsearch<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>  </div><div class="line">       <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.4.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span>  </div><div class="line">   <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span>  </div><div class="line">       <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.fasterxml.jackson.core<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>  </div><div class="line">       <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jackson-databind<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>  </div><div class="line">       <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span>  </div><div class="line">   <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure><p></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bing.utils;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.elasticsearch.client.transport.TransportClient;</div><div class="line"><span class="keyword">import</span> org.elasticsearch.common.settings.ImmutableSettings;</div><div class="line"><span class="keyword">import</span> org.elasticsearch.common.settings.Settings;</div><div class="line"><span class="keyword">import</span> org.elasticsearch.common.transport.InetSocketTransportAddress;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.lang.reflect.Constructor;</div><div class="line"><span class="keyword">import</span> java.util.HashMap;</div><div class="line"><span class="keyword">import</span> java.util.Map;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by ice on 2016/11/7.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EsUtil</span> </span>&#123;</div><div class="line">    <span class="keyword">static</span> Map&lt;String, String&gt; m = <span class="keyword">new</span> HashMap&lt;String, String&gt;();</div><div class="line">    <span class="comment">// 设置client.transport.sniff为true来使客户端去嗅探整个集群的状态，把集群中其它机器的ip地址加到客户端中，</span></div><div class="line">    <span class="keyword">static</span> Settings settings = ImmutableSettings.settingsBuilder().put(m)</div><div class="line"><span class="comment">//            .put("cluster.name","elasticsearch")</span></div><div class="line"><span class="comment">//            .put("client.transport.sniff", true)</span></div><div class="line">            .put(<span class="string">"index.refresh_interval"</span>,<span class="string">"1s"</span>)<span class="comment">//索引自动刷新间隔时间</span></div><div class="line">            .build();</div><div class="line"></div><div class="line">    <span class="comment">// 创建私有对象</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> TransportClient client;</div><div class="line"></div><div class="line">    <span class="keyword">static</span> &#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            Class&lt;?&gt; clazz = Class.forName(TransportClient.class.getName());</div><div class="line">            Constructor&lt;?&gt; constructor = clazz.getDeclaredConstructor(Settings.class);</div><div class="line">            constructor.setAccessible(<span class="keyword">true</span>);</div><div class="line">            client = (TransportClient) constructor.newInstance(settings);</div><div class="line">            client.addTransportAddress(<span class="keyword">new</span> InetSocketTransportAddress(<span class="string">"127.0.0.1"</span>, <span class="number">9300</span>));</div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//取得实例</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span>  TransportClient <span class="title">getTransportClient</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> client;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p></p><h2 id="数据初始化">原有数据初始化</h2><p></p>
+<blockquote>
+<p>导入当前的数据至elsearch中，作为初始数据<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">     * 初始化数据</div><div class="line">     */</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">/**</span></div><div class="line">         * 设置字段类型</div><div class="line">         * 为什么需要设置字段类型？</div><div class="line">         * elasticSearch对字符串有两种完全不同的搜索方式，</div><div class="line">         *  （1）按照整个文本进行匹配，即我们平时用的关键词搜索(keyword search)</div><div class="line">         *  （2）按单个字符匹配，即全文搜索(full-text search)</div><div class="line">         *   对ElasticSearch稍有了解的人都知道, 前者的字符串被称为 not-analyzed 字符, 而后者被称作 analyzed 字符串.</div><div class="line">         *   我的需求只是简单的关键词搜索，用不到分词啥的所以要设置字段类型为String</div><div class="line">         *      注：在新的elaeticsearch5.0中，String类型已被移除，增加了两个类型</div><div class="line">         *          keyword 类型对应关键词搜索 ， text 类型对应全文搜索</div><div class="line">         */</div><div class="line">        <span class="comment">//创建索引</span></div><div class="line">        EsUtil.getTransportClient().admin().indices().prepareCreate(<span class="string">"test"</span>).execute();</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            XContentBuilder builder = XContentFactory.jsonBuilder().startObject().startObject(<span class="string">"properties"</span>)</div><div class="line">                    .startObject(<span class="string">"id"</span>).field(<span class="string">"type"</span>,<span class="string">"long"</span>).endObject()</div><div class="line">                    .startObject(<span class="string">"name"</span>).field(<span class="string">"type"</span>,<span class="string">"string"</span>).field(<span class="string">"index"</span>,<span class="string">"not_analyzed"</span>).endObject()</div><div class="line">                    .startObject(<span class="string">"createDate"</span>).field(<span class="string">"type"</span>,<span class="string">"string"</span>).field(<span class="string">"index"</span>,<span class="string">"not_analyzed"</span>).endObject()</div><div class="line">                    .startObject(<span class="string">"age"</span>).field(<span class="string">"type"</span>,<span class="string">"long"</span>).endObject()</div><div class="line">                    .endObject().endObject();</div><div class="line">            PutMappingRequest putMappingRequest = Requests.putMappingRequest(<span class="string">"test"</span>).type(<span class="string">"testInfo"</span>).source(builder);</div><div class="line">            EsUtil.getTransportClient().admin().indices().putMapping(putMappingRequest).actionGet();</div><div class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//初始化索引数据</span></div><div class="line">        List&lt;Test&gt; testList = testRepository.findAll();</div><div class="line">        <span class="keyword">for</span> (Test test : testList) &#123;</div><div class="line">            <span class="keyword">this</span>.add(String.valueOf(test.getId()));</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>数据初始化之后打开我们的head视图<a href="http://localhost:9200/_plugin/head/可以看到我们的索引创建成功，浏览一下数据" target="_blank" rel="external">http://localhost:9200/_plugin/head/可以看到我们的索引创建成功，浏览一下数据</a><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://i1.piimg.com/567571/85dc129ec4bdf0e7.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+</blockquote>
+<h3 id="向elsearch中插入数据">向elsearch中插入数据</h3><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">    * 新增索引数据</div><div class="line">    * <span class="doctag">@param</span> testId</div><div class="line">    */</div><div class="line">   <span class="meta">@Override</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(String testId)</span> </span>&#123;</div><div class="line">       Test test = testRepository.findOne(Long.valueOf(testId));</div><div class="line">       Map&lt;String,Object&gt; source = <span class="keyword">new</span> HashMap&lt;String,Object&gt;();</div><div class="line">       source.put(<span class="string">"id"</span>,test.getId());</div><div class="line">       source.put(<span class="string">"name"</span>,test.getName());</div><div class="line">       source.put(<span class="string">"createDate"</span>,test.getCreateDate().getTime());</div><div class="line">       source.put(<span class="string">"age"</span>,test.getAge());</div><div class="line">       EsUtil.getTransportClient().prepareIndex(<span class="string">"test"</span>,<span class="string">"testInfo"</span>,testId)</div><div class="line">               .setSource(source).execute().actionGet();</div><div class="line">   &#125;</div></pre></td></tr></table></figure><br><br>&gt;保存日期数据时，我保存的是毫秒数，方便后续利用elsearch的javaAPI根据日期进行查询<br>&gt;（因为es默认存储时间的格式是UTC时间，如果我们查询es然后获取时间日期默认的数据，会发现跟当前的时间差8个小时，格式也是形如这样的<code>1970-01-01T00:00:00Z</code>，当然也可以直接设置format为你想要的格式，比如<code>yyyy-MM-dd HH:mm:ss</code> 然后存储的时候，指定格式，并且 Mapping  也是指定相同的format）<br><br><h3 id="从elsearch中删除数据">从elsearch中删除数据</h3><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">    * 删除索引数据</div><div class="line">    * <span class="doctag">@param</span> testId</div><div class="line">    */</div><div class="line">   <span class="meta">@Override</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">del</span><span class="params">(String testId)</span> </span>&#123;</div><div class="line">        EsUtil.getTransportClient().prepareDelete(<span class="string">"test"</span>,<span class="string">"testInfo"</span>, testId).execute().actionGet();</div><div class="line">   &#125;</div></pre></td></tr></table></figure><br><br><h3 id="轮询数据库">轮询数据库</h3>
+
+<blockquote>
+<p>相当于实时监听数据库，关于这个有很多方案，我这里的搜索功能对即时要求不太高，就用简单的轮询，时间间隔设置不要太短就行，以免服务器压力过大<br>比如说我用spring的<code>@Scheduled</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bing.controller;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bing.domain.student.TestChange;</div><div class="line"><span class="keyword">import</span> com.bing.repository.TestChangeRepository;</div><div class="line"><span class="keyword">import</span> com.bing.repository.TestRepository;</div><div class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</div><div class="line"><span class="keyword">import</span> org.springframework.scheduling.annotation.Scheduled;</div><div class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</div><div class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by ice on 2017/4/28.</div><div class="line"> */</div><div class="line"><span class="meta">@Controller</span></div><div class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/test"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestChangeController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    TestChangeRepository testChangeRepository;</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    TestRepository testRepository;</div><div class="line"></div><div class="line">    <span class="meta">@Scheduled</span>(cron = <span class="string">"0/2 * * * * ?"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">task</span><span class="params">()</span></span>&#123;</div><div class="line">        Integer n =<span class="number">0</span>;</div><div class="line">        TestChange tc = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">if</span>(testChangeRepository.findAll().size() &gt; <span class="number">0</span>)&#123;</div><div class="line">           tc = testChangeRepository.findAll().get(<span class="number">0</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//最后更新id标识</span></div><div class="line">        Integer count = testChangeRepository.getCountAsSql();</div><div class="line">        <span class="keyword">if</span>(tc != <span class="keyword">null</span>)&#123;</div><div class="line">            n = tc.getLasterId();</div><div class="line">        &#125;</div><div class="line">        count = count==<span class="keyword">null</span>?<span class="number">0</span>:count;</div><div class="line">        n = n==<span class="keyword">null</span>?<span class="number">0</span>:n;</div><div class="line">        <span class="keyword">if</span>(count &gt; n )&#123;</div><div class="line">            <span class="comment">//循环的次数count-n</span></div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = (n+<span class="number">1</span>);i&lt;=count; i++) &#123;</div><div class="line">                TestChange testChange = testChangeRepository.findOne(Long.valueOf(i));</div><div class="line">                Long changeId = Long.valueOf(testChange.getChangeId());</div><div class="line">                String chanType = testChange.getChangeType();</div><div class="line">                <span class="keyword">if</span>(<span class="string">"DELETE"</span>.equals(chanType))&#123;</div><div class="line">                    <span class="comment">//根据id从elasticsearch中删除对应数据</span></div><div class="line">                    testChangeRepository.del(String.valueOf(changeId));</div><div class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="string">"INSERT"</span>.equals(chanType))&#123;</div><div class="line">                    <span class="comment">//向elsearch中添加数据</span></div><div class="line">                    testChangeRepository.add(String.valueOf(changeId));</div><div class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="string">"UPDATE"</span>.equals(chanType))&#123;</div><div class="line">                    <span class="comment">//因为我们不知道要更改的属性，</span></div><div class="line">                    <span class="comment">// 数据更新的时候只有把elsearch中原本对应的数据删除，再添加新的数据</span></div><div class="line">                    testChangeRepository.del(String.valueOf(changeId));</div><div class="line">                    testChangeRepository.add(String.valueOf(changeId));</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        n = count;</div><div class="line">        <span class="keyword">if</span>(tc != <span class="keyword">null</span>)&#123;</div><div class="line">            tc.setLasterId(n);</div><div class="line">            testChangeRepository.save(tc);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/init"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</div><div class="line">        testChangeRepository.init();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+</blockquote>
+<h1 id="测试">测试</h1>
+
+<blockquote>
+<p>基本配置已经完成，可以手动更改数据库中的数据来测试是否会同步到elasticsearch<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://i4.buimg.com/567571/b67606047f499ecc.gif" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure><br>接下来就是调用elsearch的javaapi来做数据查询，恩就放到下一篇吧。。。</p>
+</blockquote>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+
+        
+        版权声明：<a href="/2017/05/04/mysql_elsticsearch/" target="_blank" rel="external">http://imice.me/2017/05/04/mysql_elsticsearch/</a>
+        
+    </div>
+    <footer>
+        <a href="http://imice.me">
+            <img src="/img/avatar.jpg" alt="ice">
+            ice
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/elasticsearch/">elasticsearch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://imice.me/2017/05/04/mysql_elsticsearch/&title=《利用mysql触发器创建变更表推送数据到elasticsearch》 — 我是标题&pic=http://imice.me/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://imice.me/2017/05/04/mysql_elsticsearch/&title=《利用mysql触发器创建变更表推送数据到elasticsearch》 — 我是标题&source=ice's blog" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://imice.me/2017/05/04/mysql_elsticsearch/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《利用mysql触发器创建变更表推送数据到elasticsearch》 — 我是标题&url=http://imice.me/2017/05/04/mysql_elsticsearch/&via=http://imice.me" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://imice.me/2017/05/04/mysql_elsticsearch/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/05/05/elasticsearch_queryDSL/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">elasticSearch  Query DSL(Filters)</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/04/27/slideLoading/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">手机端页面下滑异步加载数据</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+    <div id="cloud-tie-wrapper" class="comments cloud-tie-wrapper"></div>
+    <script>
+    var cloudTieConfig = {
+        url: 'http://imice.me/2017/05/04/mysql_elsticsearch/index.html',
+        sourceId: 'mysql_elsticsearch',
+        productKey: '2d4f5492db574fe0b8c3261b28351805',
+        target: 'cloud-tie-wrapper',
+        pcFiles: [
+            '/css/cloudTie/pc.css?v=1.6.6',
+            '/js/cloudTie/pc.min.js?v=1.6.6',
+        ],
+        mobileFiles: [
+            '/css/cloudTie/mobile.css?v=1.6.6',
+            '/js/cloudTie/mobile.min.js?v=1.6.6'
+        ]
+    };
+    </script>
+    <script src="/js/cloudTie/loader.min.js?v=1.6.6"></script>
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        恭喜你获得给我打钱的机会(●ˇ∀ˇ●))
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo">indigo</a></span>
+            <span><a href="http://imice.me" target="_blank">ice</a> &copy; 2016 - 2017</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://imice.me/2017/05/04/mysql_elsticsearch/&title=《利用mysql触发器创建变更表推送数据到elasticsearch》 — 我是标题&pic=http://imice.me/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://imice.me/2017/05/04/mysql_elsticsearch/&title=《利用mysql触发器创建变更表推送数据到elasticsearch》 — 我是标题&source=ice's blog" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://imice.me/2017/05/04/mysql_elsticsearch/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《利用mysql触发器创建变更表推送数据到elasticsearch》 — 我是标题&url=http://imice.me/2017/05/04/mysql_elsticsearch/&via=http://imice.me" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://imice.me/2017/05/04/mysql_elsticsearch/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKklEQVR42u3aS27DMAwFwN7/0u42QOHkkVQKWBqtgsCJNF4I/P38xOt6Wa/f/P2cfHP9WXe7LF4YGBiPZVxvV/JMsvHdk8kLinbEwMA4gHG38fsLtHoRJ7sk/4CBgYGRHygB5Fdtb18MDAyM5Jk8Ke09j4GBgZEnsfPSW/46vpiLY2BgPJCRV93///NX+hsYGBiPYlzFlRfaktBw2akwMDC2ZlTL9/NAbW07AQMD4wTG2nJYNenNGwMfxs4wMDC2ZuQBXO+bHrUaemJgYJzAmKemedG/ELGuKr1hYGBsxOgV63uXZjP4y2EYGBgbMfJArXpN58/0LncMDIzTGPlxe9tX09G85XnbicXAwNiO0TtKL2Ts5aFRCxMDA+MwRq/sVR3CqL6gaCAMAwNjO0Z15GKSjuZNiGbpDQMDY1PGPGjrHX3xsAUGBsYBjPwSnDQAJuFjOYnFwMDYiNG7WAsl+xZvwcwIBgbGAYx8kGteMqsOjY2uWgwMjMcy8kAtTz4nSWweCN5WDTEwMDZl5GlkNYxbdTV/CBAxMDAOYHxveGuS3BZ2xMDA2JRxFVceDjabkUGLIoptMTAwNmJUL9b80NXyWW+Yo9nrwMDAeCBjNJIVF8WqAxblM2BgYBzAmAxb5OX+UWf1/dWPgYGBMSiTrSqrfUhiMTAwMOLPk2Jc0rBcfOFiYGA8ilFtBiTb5G3Oya8wMDBOYFQDtfd/0QsZ8zGOUSMTAwPjeYxfjeNqmNlWxaQAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.6.6"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.6.6" async></script>
+
+
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '瞅你咋地';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你瞅啥';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
