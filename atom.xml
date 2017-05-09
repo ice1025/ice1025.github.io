@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://imice.me/"/>
-  <updated>2017-05-09T01:20:30.949Z</updated>
+  <updated>2017-05-09T07:49:06.709Z</updated>
   <id>http://imice.me/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://imice.me/2017/05/05/elasticsearch_queryDSL/"/>
     <id>http://imice.me/2017/05/05/elasticsearch_queryDSL/</id>
     <published>2017-05-05T08:53:53.303Z</published>
-    <updated>2017-05-09T01:20:30.949Z</updated>
+    <updated>2017-05-09T07:49:06.709Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>在一篇中我们实现了mysql数据实时同步至elasticSearch，<br>接下来就是利用<code>java API</code>来实现数据查询，使用<code>Filters</code>方式查询<br>注释写的很清楚，包含分页，关键字查询，范围查询等等</p>
@@ -33,7 +33,7 @@
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="http://opf9zlth7.bkt.clouddn.com/17-5-5/92385187-file_1493974226877_1421e.jpg" alt="" title="">
+                    <img src="https://www.tuchuang001.com/images/2017/05/09/92385187-file_1493974226877_1421e.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure>]]></content>
@@ -55,7 +55,7 @@
     <link href="http://imice.me/2017/05/04/mysql_elsticsearch/"/>
     <id>http://imice.me/2017/05/04/mysql_elsticsearch/</id>
     <published>2017-05-04T03:23:26.174Z</published>
-    <updated>2017-05-08T07:15:13.743Z</updated>
+    <updated>2017-05-09T08:03:22.763Z</updated>
     
     <content type="html"><![CDATA[<p><strong>利用mysql触发器创建变更表推送数据到elasticsearch</strong></p>
 <blockquote>
@@ -63,7 +63,7 @@
 <p>搜索了挺多mysql和elasticsearch之间数据同步的方式，<br>这是常见的几款插件，大神总结了这几款插件的优缺点<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="http://img.blog.csdn.net/20160627215020397" alt="" title="">
+                    <img src="https://www.tuchuang001.com/images/2017/05/09/20160627215020397.png" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure><br>anyaway,这几款插件对我帮助不大，我只需要这一块儿业务即可，有想研究的可以查看原文<br><a href="http://blog.csdn.net/laoyang360/article/details/51771621" target="_blank" rel="external">http://blog.csdn.net/laoyang360/article/details/51771621</a><br>于是便有了如下的解决方案：<br> 将要搜索的数据填充到elasticsearch里面并保持更新，原文列出了几种解决方案</p>
@@ -79,13 +79,13 @@
 <p>一张测试表test用来模拟我们要操作的表，<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="http://i2.muimg.com/567571/afc47af5169c886b.jpg" alt="" title="">
+                    <img src="https://www.tuchuang001.com/images/2017/05/09/afc47af5169c886b.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure><br>一张用来保存test表记录变更的test_change表，<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="http://i1.piimg.com/567571/60d95a0902792d22.jpg" alt="" title="">
+                    <img src="https://www.tuchuang001.com/images/2017/05/09/60d95a0902792d22.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure><br>change_type用来保存test表触发的类型，(增删改)<br>change_id用来保存更新字段的id<br>laster_id 持久化一个最后更新的id标识<br>接下来创建三个简单的触发器<br><figure class="highlight monkey"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#增加</span></div><div class="line">CREATE TRIGGER test_trigger_insert AFTER INSERT ON test </div><div class="line"><span class="keyword">FOR</span> EACH ROW INSERT INTO test_change VALUES(<span class="literal">NULL</span>,now(),<span class="comment">'INSERT',NEW.id,null);</span><span class="meta"></span></div><div class="line">#修改</div><div class="line">CREATE TRIGGER test_trigger_update AFTER UPDATE ON test</div><div class="line"><span class="keyword">FOR</span> EACH ROW INSERT INTO test_change VALUES(<span class="literal">NULL</span>,now(),<span class="comment">'UPDATE',NEW.id,null);</span><span class="meta"></span></div><div class="line">#删除</div><div class="line">CREATE TRIGGER test_trigger_delete AFTER DELETE ON test</div><div class="line"><span class="keyword">FOR</span> EACH ROW INSERT INTO test_change VALUES(<span class="literal">NULL</span>,now(),<span class="comment">'DELETE',OLD.id,null);</span></div></pre></td></tr></table></figure></p>
@@ -93,7 +93,7 @@
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="http://i2.muimg.com/567571/99f3c56848f04129.jpg" alt="" title="">
+                    <img src="https://www.tuchuang001.com/images/2017/05/09/99f3c56848f04129.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure>
@@ -111,7 +111,7 @@
 <li>找到bin文件夹下的<code>elasticsearch.bat</code>，双击运行。在bin的同级目录就会生成data和logs文件夹。<br>执行后可以看到类似如下界面：<figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="http://i1.piimg.com/567571/ee437359401c3124.jpg" alt="" title="">
+                    <img src="https://www.tuchuang001.com/images/2017/05/09/ee437359401c3124.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure>
@@ -124,7 +124,7 @@
 <p>我只装了一个可视化的head插件，有其他需求可以自行安装插件<br>安装命令：<code>D:\elasticsearch\bin&gt;plugin -install mobz/elasticsearch-head</code><br>安装完成后在<code>D:\elasticsearch\plugins</code>目录下会有<code>head</code>的文件夹<br>打开head_site\index.html(或者在浏览器地址栏输入<a href="http://localhost:9200/_plugin/head/" target="_blank" rel="external">http://localhost:9200/_plugin/head/</a>),<br>会显示如下界面：<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="http://i4.buimg.com/567571/80e2c5b6cd9084d5.jpg" alt="" title="">
+                    <img src="https://www.tuchuang001.com/images/2017/05/09/80e2c5b6cd9084d5.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure></p>
@@ -135,10 +135,10 @@
 <p></p><h2 id="数据初始化">原有数据初始化</h2><p></p>
 <blockquote>
 <p>导入当前的数据至elsearch中，作为初始数据<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">     * 初始化数据</div><div class="line">     */</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">/**</span></div><div class="line">         * 设置字段类型</div><div class="line">         * 为什么需要设置字段类型？</div><div class="line">         * elasticSearch对字符串有两种完全不同的搜索方式，</div><div class="line">         *  （1）按照整个文本进行匹配，即我们平时用的关键词搜索(keyword search)</div><div class="line">         *  （2）按单个字符匹配，即全文搜索(full-text search)</div><div class="line">         *   对ElasticSearch稍有了解的人都知道, 前者的字符串被称为 not-analyzed 字符, 而后者被称作 analyzed 字符串.</div><div class="line">         *   我的需求只是简单的关键词搜索，用不到分词啥的所以要设置字段类型为String</div><div class="line">         *      注：在新的elaeticsearch5.0中，String类型已被移除，增加了两个类型</div><div class="line">         *          keyword 类型对应关键词搜索 ， text 类型对应全文搜索</div><div class="line">         */</div><div class="line">        <span class="comment">//创建索引</span></div><div class="line">        EsUtil.getTransportClient().admin().indices().prepareCreate(<span class="string">"test"</span>).execute();</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            XContentBuilder builder = XContentFactory.jsonBuilder().startObject().startObject(<span class="string">"properties"</span>)</div><div class="line">                    .startObject(<span class="string">"id"</span>).field(<span class="string">"type"</span>,<span class="string">"long"</span>).endObject()</div><div class="line">                    .startObject(<span class="string">"name"</span>).field(<span class="string">"type"</span>,<span class="string">"string"</span>).field(<span class="string">"index"</span>,<span class="string">"not_analyzed"</span>).endObject()</div><div class="line">                    .startObject(<span class="string">"createDate"</span>).field(<span class="string">"type"</span>,<span class="string">"string"</span>).field(<span class="string">"index"</span>,<span class="string">"not_analyzed"</span>).endObject()</div><div class="line">                    .startObject(<span class="string">"age"</span>).field(<span class="string">"type"</span>,<span class="string">"long"</span>).endObject()</div><div class="line">                    .endObject().endObject();</div><div class="line">            PutMappingRequest putMappingRequest = Requests.putMappingRequest(<span class="string">"test"</span>).type(<span class="string">"testInfo"</span>).source(builder);</div><div class="line">            EsUtil.getTransportClient().admin().indices().putMapping(putMappingRequest).actionGet();</div><div class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//初始化索引数据</span></div><div class="line">        List&lt;Test&gt; testList = testRepository.findAll();</div><div class="line">        <span class="keyword">for</span> (Test test : testList) &#123;</div><div class="line">            <span class="keyword">this</span>.add(String.valueOf(test.getId()));</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
-<p>数据初始化之后打开我们的head视图<a href="http://localhost:9200/_plugin/head/可以看到我们的索引创建成功，浏览一下数据" target="_blank" rel="external">http://localhost:9200/_plugin/head/可以看到我们的索引创建成功，浏览一下数据</a><figure class="image-bubble">
+<p>数据初始化之后打开我们的head视图<a href="http://localhost:9200/_plugin/head/可以看到我们的索引创建成功，浏览一下数据" target="_blank" rel="external">http://localhost:9200/_plugin/head/可以看到我们的索引创建成功，浏览一下数据</a><br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="http://i1.piimg.com/567571/85dc129ec4bdf0e7.jpg" alt="" title="">
+                    <img src="https://www.tuchuang001.com/images/2017/05/09/85dc129ec4bdf0e7.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure></p>
@@ -154,7 +154,7 @@
 <p>基本配置已经完成，可以手动更改数据库中的数据来测试是否会同步到elasticsearch<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="http://i4.buimg.com/567571/b67606047f499ecc.gif" alt="" title="">
+                    <img src="https://www.tuchuang001.com/images/2017/05/09/b67606047f499ecc.gif" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure><br>接下来就是调用elsearch的javaapi来做数据查询，恩就放到下一篇吧。。。</p>
@@ -170,9 +170,9 @@
     </summary>
     
     
-      <category term="elasticsearch" scheme="http://imice.me/tags/elasticsearch/"/>
-    
       <category term="mysql" scheme="http://imice.me/tags/mysql/"/>
+    
+      <category term="elasticsearch" scheme="http://imice.me/tags/elasticsearch/"/>
     
   </entry>
   
@@ -213,24 +213,23 @@
     <link href="http://imice.me/2017/04/13/zhengze/"/>
     <id>http://imice.me/2017/04/13/zhengze/</id>
     <published>2017-04-13T10:16:31.934Z</published>
-    <updated>2017-05-08T07:14:57.571Z</updated>
+    <updated>2017-05-09T07:45:21.204Z</updated>
     
     <content type="html"><![CDATA[<p><strong>正则表达式匹配url</strong></p>
 <blockquote>
 <p>需求：在客户端识别一段文字中的url并加上链接效果</p>
 </blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;script type=<span class="string">"text/javascript"</span>&gt;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">replaceReg</span>(<span class="params">reg,str</span>)</span>&#123;</div><div class="line">        <span class="keyword">return</span> str.replace(reg,<span class="function"><span class="keyword">function</span>(<span class="params">m</span>)</span>&#123;<span class="keyword">return</span> <span class="string">'&lt;a href="http://'</span>+m+<span class="string">'" target="_blank"&gt;'</span>+m+<span class="string">'&lt;/a&gt;'</span>;&#125;)</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">var</span> reg = <span class="regexp">/[\w\-]+(\.[\w\-]+)+([\w\-\.,@?^=%&amp;:\/~\+#]*[\w\-\@?^=%&amp;\/~\+#])?/ig</span>;</div><div class="line">    <span class="keyword">var</span> str =<span class="string">'普通ice1025.github.io前缀http://ice1025.github.io带参数https://ice1025.github.io/2017/04/05/categories_%20java/复杂参数https://www.baidu.com/s?ie=utf-8&amp;f=8&amp;rsv_bp=1&amp;tn=baidu&amp;wd=test&amp;oq=ice1025.github.io&amp;rsv_pq=aff940260000ac5b&amp;rsv_t=7296ebK9LCPPnnupMO6dFV7jFM9hTjiVM24P3ETj4%2BH%2F3W%2BPlK0wix6RqS4&amp;rqlang=cn&amp;rsv_enter=1&amp;rsv_sug3=12&amp;rsv_sug1=12&amp;rsv_sug7=100&amp;rsv_sug2=0&amp;inputT=4695&amp;rsv_sug4=4695'</span>;</div><div class="line">    <span class="built_in">document</span>.write(replaceReg(reg,str));</div><div class="line"><span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;script type=<span class="string">"text/javascript"</span>&gt;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">replaceReg</span>(<span class="params">reg,str</span>)</span>&#123;</div><div class="line">        <span class="keyword">return</span> str.replace(reg,<span class="function"><span class="keyword">function</span>(<span class="params">m</span>)</span>&#123;<span class="keyword">return</span> <span class="string">'&lt;a href="http://'</span>+m+<span class="string">'" target="_blank"&gt;'</span>+m+<span class="string">'&lt;/a&gt;'</span>;&#125;)</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">var</span> reg = <span class="regexp">/[\w\-]+(\.[\w\-]+)+([\w\-\.,@?^=%&amp;:\/~\+#]*[\w\-\@?^=%&amp;\/~\+#])?/ig</span>;</div><div class="line">    <span class="keyword">var</span> str =<span class="string">'普通ice1025.github.io前缀http://ice1025.github.io带参数https://ice1025.github.io/2017/04/05/categories_%20java/复杂参数https://www.baidu.com/s?ie=utf-8&amp;f=8&amp;rsv_bp=1&amp;tn=baidu&amp;wd=test&amp;oq=ice1025.github.io&amp;rsv_pq=aff940260000ac5b&amp;rsv_t=7296ebK9LCPPnnupMO6dFV7jFM9hTjiVM24P3ETj4%2BH%2F3W%2BPlK0wix6RqS4&amp;rqlang=cn&amp;rsv_enter=1&amp;rsv_sug3=12&amp;rsv_sug1=12&amp;rsv_sug7=100&amp;rsv_sug2=0&amp;inputT=4695&amp;rsv_sug4=4695'</span>;</div><div class="line">    <span class="built_in">document</span>.write(replaceReg(reg,str));</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
 <blockquote>
 <p>可以看到这里正则开头并没有限制以<code>https | http | ftp</code>开头，而是在输出时添加<code>http://</code><br>原因： 通过正则中 <code>| + space</code>确实可以匹配到类似<code>www.xx.com</code>这种网址但是我发现点击跳转的时候 target 失效，形成 <code>localhost/www.xx.com</code> 这种网址</p>
 </blockquote>
 <p>页面效果如图：<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="http://i4.buimg.com/4851/84f18f528a2d2c11.jpg" alt="" title="">
+                    <img src="https://www.tuchuang001.com/images/2017/05/09/84f18f528a2d2c11.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
-            </figure></p>
-<p>头部选择不匹配，如有需要可以在头部加上<code>((ht|f)tps?):\/\/</code></p>
+            </figure><br>头部选择不匹配，如有需要可以在头部加上<code>((ht|f)tps?):\/\/</code></p>
 ]]></content>
     
     <summary type="html">
