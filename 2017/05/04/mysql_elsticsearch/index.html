@@ -19,7 +19,7 @@
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="mysql,elasticsearch">
+    <meta name="keywords" content="elasticsearch,mysql">
     <meta name="description" content="利用mysql触发器创建变更表推送数据到elasticsearch
 
 需求：某项业务需要用到模糊查询，数据库用的mysql，%search%类似这样的索引无法生效，导致搜索特别吃力看到了这位老铁的利用mysql触发器创建变更表推送数据到elasticsearch原文链接：http://www.toozy.cn/mysql-trigger-elasticsearch/ 按照这个思路，决定采用elas">
@@ -38,7 +38,7 @@
 <meta property="og:image" content="https://www.tuchuang001.com/images/2017/05/09/80e2c5b6cd9084d5.jpg">
 <meta property="og:image" content="https://www.tuchuang001.com/images/2017/05/09/85dc129ec4bdf0e7.jpg">
 <meta property="og:image" content="https://www.tuchuang001.com/images/2017/05/09/b67606047f499ecc.gif">
-<meta property="og:updated_time" content="2017-05-09T08:03:22.763Z">
+<meta property="og:updated_time" content="2017-05-17T06:54:05.856Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用mysql触发器创建变更表推送数据到elasticsearch">
 <meta name="twitter:description" content="利用mysql触发器创建变更表推送数据到elasticsearch
@@ -189,7 +189,7 @@
                     <img src="https://www.tuchuang001.com/images/2017/05/09/20160627215020397.png" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
-            </figure><br>anyaway,这几款插件对我帮助不大，我只需要这一块儿业务即可，有想研究的可以查看原文<br><a href="http://blog.csdn.net/laoyang360/article/details/51771621" target="_blank" rel="external">http://blog.csdn.net/laoyang360/article/details/51771621</a><br>于是便有了如下的解决方案：<br> 将要搜索的数据填充到elasticsearch里面并保持更新，原文列出了几种解决方案</p>
+            </figure><br>any way,这几款插件对我帮助不大，我只需要这一块儿业务即可，有想研究的可以查看原文<br><a href="http://blog.csdn.net/laoyang360/article/details/51771621" target="_blank" rel="external">http://blog.csdn.net/laoyang360/article/details/51771621</a><br>于是便有了如下的解决方案：<br> 将要搜索的数据填充到elasticsearch里面并保持更新，原文列出了几种解决方案</p>
 <ul>
 <li>在应用层面当出现增删改时顺便或提交到队列来更新索引。</li>
 <li>解析mysql的binlog，来更新索引。</li>
