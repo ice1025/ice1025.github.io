@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>springMVC复习记录（二）springMVC基于代码的servlet容器初始化 | 我是标题 | 工作并不是生活的全部，多陪陪家人，多爱爱她。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="springMVC">
+    <meta name="description" content="IDE:：idea16构建工具：mavenjdk版本：1.7
+
+springMVC简介
+springMVC是围绕一个DispatcherServlet来设计的，这个servlet会把请求分发给各个处理器，并支持可配置的处理器映射、视图渲染、本地化、时区与主题渲染等，支持文件上传。处理器是你的应用中注解了@Controller和@RequestMapping的类和方法，spring为处理器方法提供">
+<meta property="og:type" content="article">
+<meta property="og:title" content="springMVC复习记录（二）springMVC基于代码的servlet容器初始化">
+<meta property="og:url" content="http://imice.me/2017/08/01/springMVC-2/index.html">
+<meta property="og:site_name" content="我是标题">
+<meta property="og:description" content="IDE:：idea16构建工具：mavenjdk版本：1.7
+
+springMVC简介
+springMVC是围绕一个DispatcherServlet来设计的，这个servlet会把请求分发给各个处理器，并支持可配置的处理器映射、视图渲染、本地化、时区与主题渲染等，支持文件上传。处理器是你的应用中注解了@Controller和@RequestMapping的类和方法，spring为处理器方法提供">
+<meta property="og:image" content="https://www.tuchuang001.com/images/2017/08/01/figure-21-1-the-request-processing-workflow-in-spring-web-mv.jpg">
+<meta property="og:updated_time" content="2017-08-01T03:33:00.245Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="springMVC复习记录（二）springMVC基于代码的servlet容器初始化">
+<meta name="twitter:description" content="IDE:：idea16构建工具：mavenjdk版本：1.7
+
+springMVC简介
+springMVC是围绕一个DispatcherServlet来设计的，这个servlet会把请求分发给各个处理器，并支持可配置的处理器映射、视图渲染、本地化、时区与主题渲染等，支持文件上传。处理器是你的应用中注解了@Controller和@RequestMapping的类和方法，spring为处理器方法提供">
+<meta name="twitter:image" content="https://www.tuchuang001.com/images/2017/08/01/figure-21-1-the-request-processing-workflow-in-spring-web-mv.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="我是标题" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.6.6">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">ice</h5>
+          <a href="mailto:ice1025ow@qq.com" title="ice1025ow@qq.com" class="mail">ice1025ow@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/ice1025" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">springMVC复习记录（二）springMVC基于代码的servlet容器初始化</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">springMVC复习记录（二）springMVC基于代码的servlet容器初始化</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-08-01T03:27:09.900Z" itemprop="datePublished" class="page-time">
+  2017-08-01
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+<article id="post-springMVC-2"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">springMVC复习记录（二）springMVC基于代码的servlet容器初始化</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-08-01 11:27:09" datetime="2017-08-01T03:27:09.900Z"  itemprop="datePublished">2017-08-01</time>
+
+            
+
+
+            
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>IDE:：idea16<br>构建工具：maven<br>jdk版本：1.7</p>
+</blockquote>
+<p><strong>springMVC简介</strong></p>
+<p>springMVC是围绕一个<code>DispatcherServlet</code>来设计的，这个servlet会把请求分发给各个处理器，并支持可配置的处理器映射、视图渲染、本地化、时区与主题渲染等，支持文件上传。处理器是你的应用中注解了<code>@Controller</code>和<code>@RequestMapping</code>的类和方法，spring为处理器方法提供了多样灵活的配置。spring3.0以后提供了<code>@Controller</code>注解机制，<code>@PathVariable</code>注解以及一些其他的特性，你可以使用它们来进行<code>RESTful</code> web站点和应用的开发。</p>
+<blockquote>
+<p><code>对扩展开发</code>是spring web MVC框架的一个重要的设计原则，对整个spring框架来说，设计原则就是传说中的 <code>对扩展开放，对修改关闭</code>。（OCP：Open-Closed Principle）<br>到底是啥意思呢，就是在设计一个软件系统模块（类，方法）的时候，应该可以在不修改原有的模块（修改关闭）的基础上，能扩展其功能（扩展开放）。</p>
+<ul>
+<li>扩展开放：某模块的功能是可扩展的，则该模块是扩展开放的，软件系统的功能上的<code>可扩展性</code>要求模块是扩展开放的。</li>
+<li>修改关闭：某模块被其他模块调用，如果该模块的源代码不允许修改，则该模块修改关闭的。软件系统的功能上的<code>稳定性</code>，持续性要求是修改关闭的。</li>
+</ul>
+</blockquote>
+<p><strong>DispatcherServlet</strong><br>spring MVC框架与其他很多web的MVC框架一样，请求驱动，所有设计都围绕着一个中央Servlet来展开，它负责把所有请求分发到控制器，同时提供其他Web应用开发所需要的功能。不过spring的中央处理器<code>DispatcherServlet</code>能做的比这更多。它与spring IOC容器做到了无缝集成，这意味着Spring提供的任何特性，在spring MVC中你都可以使用。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://www.tuchuang001.com/images/2017/08/01/figure-21-1-the-request-processing-workflow-in-spring-web-mv.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<blockquote>
+<p>这张图展示了Spring Web MVC的<code>DispatcherServlet</code>处理请求的工作流。熟悉设计模式的朋友会发现，DispatcherServlet应用的其实就是一个<code>前端控制器</code>的设计模式（其他很多优秀的web框架也都使用了这个设计模式）。</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--配置springMVC,这里的servlet名称决定着SpringMVC配置文件的名称--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>spring-mvc<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>classpath:spring-mvc.xml<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></div><div class="line">  <span class="comment">&lt;!--启动时加载,1代表优先级,越小代表越高--&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>1<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>spring-mvc<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></div><div class="line">  <span class="comment">&lt;!--这里修改为全部页面--&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>上一篇环境配置中我们使用的是 在web.xml 文件中配置<code>DispatcherServlet</code>的方法，标准的java-EE Servlet配置，所有请求都会被名字为spring-mvc的<code>DispatcherServlet</code>处理。<br>接下来我们使用基于代码配置的方法，需要在servlet 3.0环境下，我们引入<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 导入java ee jar 包 --&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>javaee-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>7.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>MyWebApplicationInitializer.java<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyWebApplicationInitializer</span> <span class="keyword">implements</span> <span class="title">WebApplicationInitializer</span></span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onStartup</span><span class="params">(javax.servlet.ServletContext servletContext)</span> <span class="keyword">throws</span> ServletException </span>&#123;</div><div class="line"></div><div class="line">        XmlWebApplicationContext appConttext = <span class="keyword">new</span> XmlWebApplicationContext();</div><div class="line">        appConttext.setConfigLocation(<span class="string">"classpath:spring-mvc.xml"</span>);</div><div class="line"></div><div class="line">        ServletRegistration.Dynamic registration = servletContext.addServlet(<span class="string">"spring-mvc"</span>,<span class="keyword">new</span> DispatcherServlet(appConttext));</div><div class="line">        registration.setLoadOnStartup(<span class="number">1</span>);</div><div class="line">        registration.addMapping(<span class="string">"/"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这个例子和上面的<code>web.xml</code>配置文件是等效的<br><code>WebApplicationInitializer</code>是spring MVC提供的一个接口，它会查找你所有基于代码的配置，并应用它们来初始化Servlet 3.0版本以上的web容器，它有一个抽象的实现<code>AbstractDispatcherServletInitializer</code>,用以简化<code>DispatcherServlet</code>的注册工作，你只需要指定其servlet映射(mapping)即可。</p>
+<p><strong>DispatcherServlet的处理流程</strong></p>
+<p>配置好<code>DispatcherServlet</code>以后，开始有请求会经过这个DispatcherServlet，此时DispatcherServlet会按照以下次序对请求进行处理</p>
+<blockquote>
+<ul>
+<li>首先搜索应用的上下文对象，WebApplicationContext并把它作为一个属性（attribute）绑定到该请求上，以便控制器和其他组件能够使用它。属性的键名默认为<code>DispatcherServlet.WEB_APPLICATION_CONTEXT_ATTRIBUTE</code></li>
+<li>将地区（locale）解析器绑定到请求上，以便其他组件在处理请求（渲染视图、准备数据等）时可以获取区域相关的信息。如果你的应用不需要解析区域相关的信息，忽略它即可</li>
+<li>将主题（theme）解析器绑定到请求上，以便其他组件（比如视图等）能够了解要渲染哪个主题文件。同样，如果你不需要使用主题相关的特性，忽略它即可</li>
+<li>如果你配置了multipart文件处理器，那么框架将查找该文件是不是multipart（分为多个部分连续上传）的。若是，则将该请求包装成一个<code>MultipartHttpServletRequest</code>对象，以便处理链中的其他组件对它做进一步的处理。</li>
+<li>为该请求查找一个合适的处理器。如果可以找到对应的处理器，则与该处理器关联的整条执行链（前处理器，后处理器，控制器等）都会被执行，以完成相应模型的准备或视图的渲染</li>
+<li>如果处理器返回的是一个模型（model），那么框架将渲染相应的视图。若没有返回任何模型（可能是因为前后的处理器出于某种原因拦截了请求等，比如安全问题），则框架不会渲染任何视图，此时认为对请求的处理可能已经由处理链完成了</li>
+</ul>
+</blockquote>
+<p>如果在处理请求的过程中抛出了异常，那么上下文<code>WebApplicationContext</code>对象中所定义的异常处理器将会负责捕获这些异常。通过配置你自己的异常处理器，你可以定制自己处理异常的方式。</p>
+<p>你可以定制DispatcherServlet的配置，具体的做法，是在web.xml文件中，Servlet的声明元素上添加一些Servlet的初始化参数（通过init-param元素）。该元素可选的参数列表</p>
+<blockquote>
+<ul>
+<li><code>contextClass</code>   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;任意实现了WebApplicationContext接口的类。这个类会初始化该servlet所需要用到的上下文对象。默认情况下，框架会使用一个XmlWebApplicationContext对象。</li>
+<li><code>contextConfigLocation</code>   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一个指定了上下文配置文件路径的字符串，该值会被传入给contextClass所指定的上下文实例对象。该字符串内可以包含多个字符串，字符串之间以逗号分隔，以此支持你进行多个上下文的配置。在多个上下文中重复定义的bean，以最后加载的bean定义为准</li>
+<li><code>namespace</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WebApplicationContext的命名空间。默认是[servlet-name]-servlet</li>
+</ul>
+</blockquote>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+
+        
+        版权声明：<a href="/2017/08/01/springMVC-2/" target="_blank" rel="external">http://imice.me/2017/08/01/springMVC-2/</a>
+        
+    </div>
+    <footer>
+        <a href="http://imice.me">
+            <img src="/img/avatar.jpg" alt="ice">
+            ice
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springMVC/">springMVC</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://imice.me/2017/08/01/springMVC-2/&title=《springMVC复习记录（二）springMVC基于代码的servlet容器初始化》 — 我是标题&pic=http://imice.me/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://imice.me/2017/08/01/springMVC-2/&title=《springMVC复习记录（二）springMVC基于代码的servlet容器初始化》 — 我是标题&source=ice's blog" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://imice.me/2017/08/01/springMVC-2/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《springMVC复习记录（二）springMVC基于代码的servlet容器初始化》 — 我是标题&url=http://imice.me/2017/08/01/springMVC-2/&via=http://imice.me" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://imice.me/2017/08/01/springMVC-2/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/07/31/springMVC-1/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">springMVC复习记录（一）环境搭建</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+    <div id="cloud-tie-wrapper" class="comments cloud-tie-wrapper"></div>
+    <script>
+    var cloudTieConfig = {
+        url: 'http://imice.me/2017/08/01/springMVC-2/index.html',
+        sourceId: 'springMVC-2',
+        productKey: '2d4f5492db574fe0b8c3261b28351805',
+        target: 'cloud-tie-wrapper',
+        pcFiles: [
+            '/css/cloudTie/pc.css?v=1.6.6',
+            '/js/cloudTie/pc.min.js?v=1.6.6',
+        ],
+        mobileFiles: [
+            '/css/cloudTie/mobile.css?v=1.6.6',
+            '/js/cloudTie/mobile.min.js?v=1.6.6'
+        ]
+    };
+    </script>
+    <script src="/js/cloudTie/loader.min.js?v=1.6.6"></script>
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        恭喜你获得给我打钱的机会(●ˇ∀ˇ●))
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span><a href="http://imice.me">ice</a> &copy; 2016 - 2017</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://imice.me/2017/08/01/springMVC-2/&title=《springMVC复习记录（二）springMVC基于代码的servlet容器初始化》 — 我是标题&pic=http://imice.me/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://imice.me/2017/08/01/springMVC-2/&title=《springMVC复习记录（二）springMVC基于代码的servlet容器初始化》 — 我是标题&source=ice's blog" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://imice.me/2017/08/01/springMVC-2/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《springMVC复习记录（二）springMVC基于代码的servlet容器初始化》 — 我是标题&url=http://imice.me/2017/08/01/springMVC-2/&via=http://imice.me" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://imice.me/2017/08/01/springMVC-2/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABwklEQVR42u3aS24EIQwFwNz/0pMDzCfv4YZOomI1GtFQbCxs8/UVj8fTeP4/mfnuq4sHLi7umPv4OD7PSbbPD/N5F1xc3PPcZJsktrSs3ICLi/tXuMlVJlkTFxf3f3AnycwNgQwXF3eJm6Q3a6lOHvIuztVwcXEH3Dz07Pu9pb6Li4u7xH2UIy+DJoGv3h0XF/cINw8oeaGzXa2eiYuLu5k7v6Ak3PaQUQjDxcXdxm2TkISyljglVx9cXNyT3MkGyaJt+SNvtODi4p7k5oGsbYTkxZS19i0uLu5V3LaUmVx6JoHph5m4uLibue3ziH0N2s+GtwVTXFzcbdx5czTfMn8E9uJguLi4B7l50Fk7WJv8RHEXFxd3Gze/drSlkDy9qQsxuLi4B7ltU6Qtf0wO9iKQ4eLiHuEmH7SXnjb5SVbDxcU9yV1rmcwTpPoChIuLu5k7CStto7QtvOLi4t7FbRulSVI0b75e8I4MFxd3zK3Tj/hRRR4QkysULi7uee5aeTR6UDVIfoqCKS4u7q3cNgDl86Mj4eLi/kruJGWahDNcXNzz3DZRaduobTEFFxf3Xm5b3Mzbrmut3LXAh4uLexH3G03v4jFCB2tiAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.6.6"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.6.6" async></script>
+
+
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '瞅你咋地';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你瞅啥';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
