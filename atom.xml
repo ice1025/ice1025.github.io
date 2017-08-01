@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://imice.me/"/>
-  <updated>2017-08-01T03:33:00.245Z</updated>
+  <updated>2017-08-01T06:09:15.557Z</updated>
   <id>http://imice.me/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>springMVC复习记录（二）springMVC基于代码的servlet容器初始化</title>
+    <title>springMVC学习记录（二）基于代码的servlet容器初始化</title>
     <link href="http://imice.me/2017/08/01/springMVC-2/"/>
     <id>http://imice.me/2017/08/01/springMVC-2/</id>
     <published>2017-08-01T03:27:09.900Z</published>
-    <updated>2017-08-01T03:33:00.245Z</updated>
+    <updated>2017-08-01T06:09:15.557Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>IDE:：idea16<br>构建工具：maven<br>jdk版本：1.7</p>
@@ -88,11 +88,11 @@
   </entry>
   
   <entry>
-    <title>springMVC复习记录（一）环境搭建</title>
+    <title>springMVC学习记录（一）环境搭建</title>
     <link href="http://imice.me/2017/07/31/springMVC-1/"/>
     <id>http://imice.me/2017/07/31/springMVC-1/</id>
     <published>2017-07-31T09:29:42.862Z</published>
-    <updated>2017-07-31T09:52:54.852Z</updated>
+    <updated>2017-08-01T06:09:05.031Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>以前没有写博客记录的习惯，发现好多东西写过之后特别容易忘，<br>最近有点时间，重新回顾一下，恩…从springMVC开始</p>

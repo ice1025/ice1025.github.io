@@ -13,7 +13,7 @@
     
     
     
-    <title>springMVC复习记录（二）springMVC基于代码的servlet容器初始化 | 我是标题 | 工作并不是生活的全部，多陪陪家人，多爱爱她。</title>
+    <title>springMVC学习记录（二）基于代码的servlet容器初始化 | 我是标题 | 工作并不是生活的全部，多陪陪家人，多爱爱她。</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
@@ -25,7 +25,7 @@
 springMVC简介
 springMVC是围绕一个DispatcherServlet来设计的，这个servlet会把请求分发给各个处理器，并支持可配置的处理器映射、视图渲染、本地化、时区与主题渲染等，支持文件上传。处理器是你的应用中注解了@Controller和@RequestMapping的类和方法，spring为处理器方法提供">
 <meta property="og:type" content="article">
-<meta property="og:title" content="springMVC复习记录（二）springMVC基于代码的servlet容器初始化">
+<meta property="og:title" content="springMVC学习记录（二）基于代码的servlet容器初始化">
 <meta property="og:url" content="http://imice.me/2017/08/01/springMVC-2/index.html">
 <meta property="og:site_name" content="我是标题">
 <meta property="og:description" content="IDE:：idea16构建工具：mavenjdk版本：1.7
@@ -33,9 +33,9 @@ springMVC是围绕一个DispatcherServlet来设计的，这个servlet会把请�
 springMVC简介
 springMVC是围绕一个DispatcherServlet来设计的，这个servlet会把请求分发给各个处理器，并支持可配置的处理器映射、视图渲染、本地化、时区与主题渲染等，支持文件上传。处理器是你的应用中注解了@Controller和@RequestMapping的类和方法，spring为处理器方法提供">
 <meta property="og:image" content="https://www.tuchuang001.com/images/2017/08/01/figure-21-1-the-request-processing-workflow-in-spring-web-mv.jpg">
-<meta property="og:updated_time" content="2017-08-01T03:33:00.245Z">
+<meta property="og:updated_time" content="2017-08-01T06:09:15.557Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="springMVC复习记录（二）springMVC基于代码的servlet容器初始化">
+<meta name="twitter:title" content="springMVC学习记录（二）基于代码的servlet容器初始化">
 <meta name="twitter:description" content="IDE:：idea16构建工具：mavenjdk版本：1.7
 
 springMVC简介
@@ -110,7 +110,7 @@ springMVC是围绕一个DispatcherServlet来设计的，这个servlet会把请�
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">springMVC复习记录（二）springMVC基于代码的servlet容器初始化</div>
+        <div class="flex-col header-title ellipsis">springMVC学习记录（二）基于代码的servlet容器初始化</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -132,7 +132,7 @@ springMVC是围绕一个DispatcherServlet来设计的，这个servlet会把请�
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">springMVC复习记录（二）springMVC基于代码的servlet容器初始化</h1>
+        <h1 class="title">springMVC学习记录（二）基于代码的servlet容器初始化</h1>
         <h5 class="subtitle">
             
                 <time datetime="2017-08-01T03:27:09.900Z" itemprop="datePublished" class="page-time">
@@ -156,7 +156,7 @@ springMVC是围绕一个DispatcherServlet来设计的，这个servlet会把请�
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">springMVC复习记录（二）springMVC基于代码的servlet容器初始化</h1>
+        <h1 class="post-card-title">springMVC学习记录（二）基于代码的servlet容器初始化</h1>
         <div class="post-meta">
             <time class="post-time" title="2017-08-01 11:27:09" datetime="2017-08-01T03:27:09.900Z"  itemprop="datePublished">2017-08-01</time>
 
@@ -255,7 +255,7 @@ springMVC是围绕一个DispatcherServlet来设计的，这个servlet会把请�
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://imice.me/2017/08/01/springMVC-2/&title=《springMVC复习记录（二）springMVC基于代码的servlet容器初始化》 — 我是标题&pic=http://imice.me/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://imice.me/2017/08/01/springMVC-2/&title=《springMVC学习记录（二）基于代码的servlet容器初始化》 — 我是标题&pic=http://imice.me/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -265,7 +265,7 @@ springMVC是围绕一个DispatcherServlet来设计的，这个servlet会把请�
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://imice.me/2017/08/01/springMVC-2/&title=《springMVC复习记录（二）springMVC基于代码的servlet容器初始化》 — 我是标题&source=ice's blog" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://imice.me/2017/08/01/springMVC-2/&title=《springMVC学习记录（二）基于代码的servlet容器初始化》 — 我是标题&source=ice's blog" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -275,7 +275,7 @@ springMVC是围绕一个DispatcherServlet来设计的，这个servlet会把请�
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《springMVC复习记录（二）springMVC基于代码的servlet容器初始化》 — 我是标题&url=http://imice.me/2017/08/01/springMVC-2/&via=http://imice.me" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《springMVC学习记录（二）基于代码的servlet容器初始化》 — 我是标题&url=http://imice.me/2017/08/01/springMVC-2/&via=http://imice.me" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
@@ -307,7 +307,7 @@ springMVC是围绕一个DispatcherServlet来设计的，这个servlet会把请�
     <div class="waves-block waves-effect next">
       <a href="/2017/07/31/springMVC-1/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">springMVC复习记录（一）环境搭建</h4>
+        <h4 class="title">springMVC学习记录（一）环境搭建</h4>
       </a>
     </div>
   
@@ -409,7 +409,7 @@ springMVC是围绕一个DispatcherServlet来设计的，这个servlet会把请�
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://imice.me/2017/08/01/springMVC-2/&title=《springMVC复习记录（二）springMVC基于代码的servlet容器初始化》 — 我是标题&pic=http://imice.me/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://imice.me/2017/08/01/springMVC-2/&title=《springMVC学习记录（二）基于代码的servlet容器初始化》 — 我是标题&pic=http://imice.me/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -419,7 +419,7 @@ springMVC是围绕一个DispatcherServlet来设计的，这个servlet会把请�
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://imice.me/2017/08/01/springMVC-2/&title=《springMVC复习记录（二）springMVC基于代码的servlet容器初始化》 — 我是标题&source=ice's blog" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://imice.me/2017/08/01/springMVC-2/&title=《springMVC学习记录（二）基于代码的servlet容器初始化》 — 我是标题&source=ice's blog" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -429,7 +429,7 @@ springMVC是围绕一个DispatcherServlet来设计的，这个servlet会把请�
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《springMVC复习记录（二）springMVC基于代码的servlet容器初始化》 — 我是标题&url=http://imice.me/2017/08/01/springMVC-2/&via=http://imice.me" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《springMVC学习记录（二）基于代码的servlet容器初始化》 — 我是标题&url=http://imice.me/2017/08/01/springMVC-2/&via=http://imice.me" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
