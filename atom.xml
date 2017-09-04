@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://imice.me/"/>
-  <updated>2017-08-01T06:09:15.557Z</updated>
+  <updated>2017-09-04T06:49:53.525Z</updated>
   <id>http://imice.me/</id>
   
   <author>
@@ -14,6 +14,38 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CentOS安装配置jdk</title>
+    <link href="http://imice.me/2017/09/04/CentOS_jdk1.7/"/>
+    <id>http://imice.me/2017/09/04/CentOS_jdk1.7/</id>
+    <published>2017-09-04T06:52:18.131Z</published>
+    <updated>2017-09-04T06:49:53.525Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>CentOS：6.9 x64<br>jdk：1.7</p>
+</blockquote>
+<p><strong>查看是否安装有jdk，并删除之前版本</strong><br><figure class="highlight dos"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#查看</div><div class="line">rpm -qa|grep java</div><div class="line">#删除</div><div class="line">rpm -e --nodeps java-XXXX</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p><strong>从官网下载好1.7的安装包，解压到指定目录/usr/local/java</strong><br><figure class="highlight dos"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">tar zxvf jdk-<span class="number">7</span>u79-linux-x64.tar.gz -C /usr/local/java/</div><div class="line">#当前目录结构为 /usr/local/java/jdk1.<span class="number">7</span>.<span class="number">0</span>_79</div></pre></td></tr></table></figure></p>
+<p><strong>配置环境变量，编辑/etc/prodile文件</strong><br><figure class="highlight dos"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">vim /etc/profile</div><div class="line">#在末尾添加</div><div class="line">export JAVA_HOME=/usr/local/java/jdk1.<span class="number">7</span>.<span class="number">0</span>_79</div><div class="line">export CLASSPATH=.:$JAVA_HOME/jre/lib/rt.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar </div><div class="line">export <span class="built_in">PATH</span>=$<span class="built_in">PATH</span>:$JAVA_HOME/bin</div></pre></td></tr></table></figure></p>
+<p><strong>重新加载/etc/profile</strong><br><figure class="highlight dos"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">souce /etc/profile</div></pre></td></tr></table></figure></p>
+<p><strong>查看</strong><br><figure class="highlight dos"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">java -version</div><div class="line">#显示如下</div><div class="line">java version "<span class="number">1</span>.<span class="number">7</span>.<span class="number">0</span>_79"</div><div class="line">Java(TM) SE Runtime Environment (build <span class="number">1</span>.<span class="number">7</span>.<span class="number">0</span>_79-b15)</div><div class="line">Java HotSpot(TM) <span class="number">64</span>-Bit Server VM (build <span class="number">24</span>.<span class="number">79</span>-b02, mixed <span class="built_in">mode</span>)</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;CentOS：6.9 x64&lt;br&gt;jdk：1.7&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;查看是否安装有jdk，并删除之前版本&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight dos&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;#查看&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;rpm -qa|grep java&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;#删除&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;rpm -e --nodeps java-XXXX&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="linux" scheme="http://imice.me/tags/linux/"/>
+    
+  </entry>
   
   <entry>
     <title>springMVC学习记录（二）基于代码的servlet容器初始化</title>
