@@ -30,21 +30,21 @@
 <meta property="og:description" content="利用mysql触发器创建变更表推送数据到elasticsearch
 
 需求：某项业务需要用到模糊查询，数据库用的mysql，%search%类似这样的索引无法生效，导致搜索特别吃力看到了这位老铁的利用mysql触发器创建变更表推送数据到elasticsearch原文链接：http://www.toozy.cn/mysql-trigger-elasticsearch/ 按照这个思路，决定采用elas">
-<meta property="og:image" content="https://www.tuchuang001.com/images/2017/05/09/20160627215020397.png">
-<meta property="og:image" content="https://www.tuchuang001.com/images/2017/05/09/afc47af5169c886b.jpg">
-<meta property="og:image" content="https://www.tuchuang001.com/images/2017/05/09/60d95a0902792d22.jpg">
-<meta property="og:image" content="https://www.tuchuang001.com/images/2017/05/09/99f3c56848f04129.jpg">
-<meta property="og:image" content="https://www.tuchuang001.com/images/2017/05/09/ee437359401c3124.jpg">
-<meta property="og:image" content="https://www.tuchuang001.com/images/2017/05/09/80e2c5b6cd9084d5.jpg">
-<meta property="og:image" content="https://www.tuchuang001.com/images/2017/05/09/85dc129ec4bdf0e7.jpg">
-<meta property="og:image" content="https://www.tuchuang001.com/images/2017/05/09/b67606047f499ecc.gif">
-<meta property="og:updated_time" content="2017-05-17T06:54:05.856Z">
+<meta property="og:image" content="https://tuchuang001.com/images/2017/05/09/20160627215020397.png">
+<meta property="og:image" content="https://tuchuang001.com/images/2017/05/09/afc47af5169c886b.jpg">
+<meta property="og:image" content="https://tuchuang001.com/images/2017/05/09/60d95a0902792d22.jpg">
+<meta property="og:image" content="https://tuchuang001.com/images/2017/05/09/99f3c56848f04129.jpg">
+<meta property="og:image" content="https://tuchuang001.com/images/2017/05/09/ee437359401c3124.jpg">
+<meta property="og:image" content="https://tuchuang001.com/images/2017/05/09/80e2c5b6cd9084d5.jpg">
+<meta property="og:image" content="https://tuchuang001.com/images/2017/05/09/85dc129ec4bdf0e7.jpg">
+<meta property="og:image" content="https://tuchuang001.com/images/2017/05/09/b67606047f499ecc.gif">
+<meta property="og:updated_time" content="2017-10-12T02:15:06.382Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用mysql触发器创建变更表推送数据到elasticsearch">
 <meta name="twitter:description" content="利用mysql触发器创建变更表推送数据到elasticsearch
 
 需求：某项业务需要用到模糊查询，数据库用的mysql，%search%类似这样的索引无法生效，导致搜索特别吃力看到了这位老铁的利用mysql触发器创建变更表推送数据到elasticsearch原文链接：http://www.toozy.cn/mysql-trigger-elasticsearch/ 按照这个思路，决定采用elas">
-<meta name="twitter:image" content="https://www.tuchuang001.com/images/2017/05/09/20160627215020397.png">
+<meta name="twitter:image" content="https://tuchuang001.com/images/2017/05/09/20160627215020397.png">
     
         <link rel="alternate" type="application/atom+xml" title="我是标题" href="/atom.xml">
     
@@ -186,7 +186,7 @@
 <p>搜索了挺多mysql和elasticsearch之间数据同步的方式，<br>这是常见的几款插件，大神总结了这几款插件的优缺点<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.tuchuang001.com/images/2017/05/09/20160627215020397.png" alt="" title="">
+                    <img src="https://tuchuang001.com/images/2017/05/09/20160627215020397.png" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure><br>any way,这几款插件对我帮助不大，我只需要这一块儿业务即可，有想研究的可以查看原文<br><a href="http://blog.csdn.net/laoyang360/article/details/51771621" target="_blank" rel="external">http://blog.csdn.net/laoyang360/article/details/51771621</a><br>于是便有了如下的解决方案：<br> 将要搜索的数据填充到elasticsearch里面并保持更新，原文列出了几种解决方案</p>
@@ -202,13 +202,13 @@
 <p>一张测试表test用来模拟我们要操作的表，<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.tuchuang001.com/images/2017/05/09/afc47af5169c886b.jpg" alt="" title="">
+                    <img src="https://tuchuang001.com/images/2017/05/09/afc47af5169c886b.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure><br>一张用来保存test表记录变更的test_change表，<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.tuchuang001.com/images/2017/05/09/60d95a0902792d22.jpg" alt="" title="">
+                    <img src="https://tuchuang001.com/images/2017/05/09/60d95a0902792d22.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure><br>change_type用来保存test表触发的类型，(增删改)<br>change_id用来保存更新字段的id<br>laster_id 持久化一个最后更新的id标识<br>接下来创建三个简单的触发器<br><figure class="highlight monkey"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#增加</span></div><div class="line">CREATE TRIGGER test_trigger_insert AFTER INSERT ON test </div><div class="line"><span class="keyword">FOR</span> EACH ROW INSERT INTO test_change VALUES(<span class="literal">NULL</span>,now(),<span class="comment">'INSERT',NEW.id,null);</span><span class="meta"></span></div><div class="line">#修改</div><div class="line">CREATE TRIGGER test_trigger_update AFTER UPDATE ON test</div><div class="line"><span class="keyword">FOR</span> EACH ROW INSERT INTO test_change VALUES(<span class="literal">NULL</span>,now(),<span class="comment">'UPDATE',NEW.id,null);</span><span class="meta"></span></div><div class="line">#删除</div><div class="line">CREATE TRIGGER test_trigger_delete AFTER DELETE ON test</div><div class="line"><span class="keyword">FOR</span> EACH ROW INSERT INTO test_change VALUES(<span class="literal">NULL</span>,now(),<span class="comment">'DELETE',OLD.id,null);</span></div></pre></td></tr></table></figure></p>
@@ -216,7 +216,7 @@
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.tuchuang001.com/images/2017/05/09/99f3c56848f04129.jpg" alt="" title="">
+                    <img src="https://tuchuang001.com/images/2017/05/09/99f3c56848f04129.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure>
@@ -234,7 +234,7 @@
 <li>找到bin文件夹下的<code>elasticsearch.bat</code>，双击运行。在bin的同级目录就会生成data和logs文件夹。<br>执行后可以看到类似如下界面：<figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.tuchuang001.com/images/2017/05/09/ee437359401c3124.jpg" alt="" title="">
+                    <img src="https://tuchuang001.com/images/2017/05/09/ee437359401c3124.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure>
@@ -247,7 +247,7 @@
 <p>我只装了一个可视化的head插件，有其他需求可以自行安装插件<br>安装命令：<code>D:\elasticsearch\bin&gt;plugin -install mobz/elasticsearch-head</code><br>安装完成后在<code>D:\elasticsearch\plugins</code>目录下会有<code>head</code>的文件夹<br>打开head_site\index.html(或者在浏览器地址栏输入<a href="http://localhost:9200/_plugin/head/" target="_blank" rel="external">http://localhost:9200/_plugin/head/</a>),<br>会显示如下界面：<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.tuchuang001.com/images/2017/05/09/80e2c5b6cd9084d5.jpg" alt="" title="">
+                    <img src="https://tuchuang001.com/images/2017/05/09/80e2c5b6cd9084d5.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure></p>
@@ -261,7 +261,7 @@
 <p>数据初始化之后打开我们的head视图<a href="http://localhost:9200/_plugin/head/可以看到我们的索引创建成功，浏览一下数据" target="_blank" rel="external">http://localhost:9200/_plugin/head/可以看到我们的索引创建成功，浏览一下数据</a><br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.tuchuang001.com/images/2017/05/09/85dc129ec4bdf0e7.jpg" alt="" title="">
+                    <img src="https://tuchuang001.com/images/2017/05/09/85dc129ec4bdf0e7.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure></p>
@@ -277,7 +277,7 @@
 <p>基本配置已经完成，可以手动更改数据库中的数据来测试是否会同步到elasticsearch<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.tuchuang001.com/images/2017/05/09/b67606047f499ecc.gif" alt="" title="">
+                    <img src="https://tuchuang001.com/images/2017/05/09/b67606047f499ecc.gif" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure><br>接下来就是调用elsearch的javaapi来做数据查询，恩就放到下一篇吧。。。</p>

@@ -52,7 +52,7 @@
     <link href="http://imice.me/2017/08/01/springMVC-2/"/>
     <id>http://imice.me/2017/08/01/springMVC-2/</id>
     <published>2017-08-01T03:27:09.900Z</published>
-    <updated>2017-08-01T06:09:15.557Z</updated>
+    <updated>2017-10-12T02:11:08.969Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>IDE:：idea16<br>构建工具：maven<br>jdk版本：1.7</p>
@@ -70,7 +70,7 @@
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.tuchuang001.com/images/2017/08/01/figure-21-1-the-request-processing-workflow-in-spring-web-mv.jpg" alt="" title="">
+                    <img src="https://tuchuang001.com/images/2017/08/01/figure-21-1-the-request-processing-workflow-in-spring-web-mv.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure>
@@ -124,7 +124,7 @@
     <link href="http://imice.me/2017/07/31/springMVC-1/"/>
     <id>http://imice.me/2017/07/31/springMVC-1/</id>
     <published>2017-07-31T09:29:42.862Z</published>
-    <updated>2017-08-01T06:09:05.031Z</updated>
+    <updated>2017-10-12T02:21:58.172Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>以前没有写博客记录的习惯，发现好多东西写过之后特别容易忘，<br>最近有点时间，重新回顾一下，恩…从springMVC开始</p>
@@ -135,61 +135,61 @@
 <p>创建过程比较简单，放几张图<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.tuchuang001.com/images/2017/07/31/QQ20170731143752.md.jpg" alt="" title="">
+                    <img src="https://tuchuang001.com/images/2017/07/31/QQ20170731143752.md.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure><br>next<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.tuchuang001.com/images/2017/07/31/QQ20170731144024.md.jpg" alt="" title="">
+                    <img src="https://tuchuang001.com/images/2017/07/31/QQ20170731144024.md.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure><br>继续next<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.tuchuang001.com/images/2017/07/31/QQ20170731144154.md.jpg" alt="" title="">
+                    <img src="https://tuchuang001.com/images/2017/07/31/QQ20170731144154.md.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure><br>这里maven home可以选择 idea默认提供的，也可以指定自己的maven目录<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.tuchuang001.com/images/2017/07/31/QQ20170731144509.md.jpg" alt="" title="">
+                    <img src="https://tuchuang001.com/images/2017/07/31/QQ20170731144509.md.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure><br>finish项目构建完成<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.tuchuang001.com/images/2017/07/31/QQ20170731144732.md.jpg" alt="" title="">
+                    <img src="https://tuchuang001.com/images/2017/07/31/QQ20170731144732.md.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure><br>默认生成的目录结构，以及pom文件，可以看到这里给我们默认引入了junit包<br>配置一下我们的tomcat，点击edit<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.tuchuang001.com/images/2017/07/31/QQ20170731145024.jpg" alt="" title="">
+                    <img src="https://tuchuang001.com/images/2017/07/31/QQ20170731145024.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure><br>我们创建添加一个tomcat<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.tuchuang001.com/images/2017/07/31/QQ20170731145302.jpg" alt="" title="">
+                    <img src="https://tuchuang001.com/images/2017/07/31/QQ20170731145302.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure><br>简单配置一下<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.tuchuang001.com/images/2017/07/31/QQ20170731145533.jpg" alt="" title="">
+                    <img src="https://tuchuang001.com/images/2017/07/31/QQ20170731145533.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure><br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.tuchuang001.com/images/2017/07/31/QQ20170731145541.jpg" alt="" title="">
+                    <img src="https://tuchuang001.com/images/2017/07/31/QQ20170731145541.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure><br>启动项目<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.tuchuang001.com/images/2017/07/31/QQ20170731145745.png" alt="" title="">
+                    <img src="https://tuchuang001.com/images/2017/07/31/QQ20170731145745.png" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure><br>传图片好累。。终于看到了传说中的hello world，接下来就是配置springMVC<br><strong><h5 id="配置springMVC">配置springMVC</h5></strong></p>
@@ -206,7 +206,7 @@
 <p>主要是配置一下视图解析，静态资源映射，编码这么些东西<br>看下我们现在的目录结构<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.tuchuang001.com/images/2017/07/31/QQ20170731172014.jpg" alt="" title="">
+                    <img src="https://tuchuang001.com/images/2017/07/31/QQ20170731172014.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure></p>
@@ -217,7 +217,7 @@
 <p>引入了一张图片测试下静态资源引入是否正常，访问tomcat<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.tuchuang001.com/images/2017/07/31/QQ20170731172414.jpg" alt="" title="">
+                    <img src="https://tuchuang001.com/images/2017/07/31/QQ20170731172414.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure><br>到这里springMVC的简单配置就完成了，下一篇继续深入探讨</p>
@@ -242,7 +242,7 @@
     <link href="http://imice.me/2017/05/05/elasticsearch_queryDSL/"/>
     <id>http://imice.me/2017/05/05/elasticsearch_queryDSL/</id>
     <published>2017-05-05T08:53:53.303Z</published>
-    <updated>2017-05-09T07:49:06.709Z</updated>
+    <updated>2017-10-12T02:15:24.221Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>在一篇中我们实现了mysql数据实时同步至elasticSearch，<br>接下来就是利用<code>java API</code>来实现数据查询，使用<code>Filters</code>方式查询<br>注释写的很清楚，包含分页，关键字查询，范围查询等等</p>
@@ -255,7 +255,7 @@
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.tuchuang001.com/images/2017/05/09/92385187-file_1493974226877_1421e.jpg" alt="" title="">
+                    <img src="https://tuchuang001.com/images/2017/05/09/92385187-file_1493974226877_1421e.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure>]]></content>
@@ -277,7 +277,7 @@
     <link href="http://imice.me/2017/05/04/mysql_elsticsearch/"/>
     <id>http://imice.me/2017/05/04/mysql_elsticsearch/</id>
     <published>2017-05-04T03:23:26.174Z</published>
-    <updated>2017-05-17T06:54:05.856Z</updated>
+    <updated>2017-10-12T02:15:06.382Z</updated>
     
     <content type="html"><![CDATA[<p><strong>利用mysql触发器创建变更表推送数据到elasticsearch</strong></p>
 <blockquote>
@@ -285,7 +285,7 @@
 <p>搜索了挺多mysql和elasticsearch之间数据同步的方式，<br>这是常见的几款插件，大神总结了这几款插件的优缺点<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.tuchuang001.com/images/2017/05/09/20160627215020397.png" alt="" title="">
+                    <img src="https://tuchuang001.com/images/2017/05/09/20160627215020397.png" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure><br>any way,这几款插件对我帮助不大，我只需要这一块儿业务即可，有想研究的可以查看原文<br><a href="http://blog.csdn.net/laoyang360/article/details/51771621" target="_blank" rel="external">http://blog.csdn.net/laoyang360/article/details/51771621</a><br>于是便有了如下的解决方案：<br> 将要搜索的数据填充到elasticsearch里面并保持更新，原文列出了几种解决方案</p>
@@ -301,13 +301,13 @@
 <p>一张测试表test用来模拟我们要操作的表，<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.tuchuang001.com/images/2017/05/09/afc47af5169c886b.jpg" alt="" title="">
+                    <img src="https://tuchuang001.com/images/2017/05/09/afc47af5169c886b.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure><br>一张用来保存test表记录变更的test_change表，<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.tuchuang001.com/images/2017/05/09/60d95a0902792d22.jpg" alt="" title="">
+                    <img src="https://tuchuang001.com/images/2017/05/09/60d95a0902792d22.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure><br>change_type用来保存test表触发的类型，(增删改)<br>change_id用来保存更新字段的id<br>laster_id 持久化一个最后更新的id标识<br>接下来创建三个简单的触发器<br><figure class="highlight monkey"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#增加</span></div><div class="line">CREATE TRIGGER test_trigger_insert AFTER INSERT ON test </div><div class="line"><span class="keyword">FOR</span> EACH ROW INSERT INTO test_change VALUES(<span class="literal">NULL</span>,now(),<span class="comment">'INSERT',NEW.id,null);</span><span class="meta"></span></div><div class="line">#修改</div><div class="line">CREATE TRIGGER test_trigger_update AFTER UPDATE ON test</div><div class="line"><span class="keyword">FOR</span> EACH ROW INSERT INTO test_change VALUES(<span class="literal">NULL</span>,now(),<span class="comment">'UPDATE',NEW.id,null);</span><span class="meta"></span></div><div class="line">#删除</div><div class="line">CREATE TRIGGER test_trigger_delete AFTER DELETE ON test</div><div class="line"><span class="keyword">FOR</span> EACH ROW INSERT INTO test_change VALUES(<span class="literal">NULL</span>,now(),<span class="comment">'DELETE',OLD.id,null);</span></div></pre></td></tr></table></figure></p>
@@ -315,7 +315,7 @@
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.tuchuang001.com/images/2017/05/09/99f3c56848f04129.jpg" alt="" title="">
+                    <img src="https://tuchuang001.com/images/2017/05/09/99f3c56848f04129.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure>
@@ -333,7 +333,7 @@
 <li>找到bin文件夹下的<code>elasticsearch.bat</code>，双击运行。在bin的同级目录就会生成data和logs文件夹。<br>执行后可以看到类似如下界面：<figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.tuchuang001.com/images/2017/05/09/ee437359401c3124.jpg" alt="" title="">
+                    <img src="https://tuchuang001.com/images/2017/05/09/ee437359401c3124.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure>
@@ -346,7 +346,7 @@
 <p>我只装了一个可视化的head插件，有其他需求可以自行安装插件<br>安装命令：<code>D:\elasticsearch\bin&gt;plugin -install mobz/elasticsearch-head</code><br>安装完成后在<code>D:\elasticsearch\plugins</code>目录下会有<code>head</code>的文件夹<br>打开head_site\index.html(或者在浏览器地址栏输入<a href="http://localhost:9200/_plugin/head/" target="_blank" rel="external">http://localhost:9200/_plugin/head/</a>),<br>会显示如下界面：<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.tuchuang001.com/images/2017/05/09/80e2c5b6cd9084d5.jpg" alt="" title="">
+                    <img src="https://tuchuang001.com/images/2017/05/09/80e2c5b6cd9084d5.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure></p>
@@ -360,7 +360,7 @@
 <p>数据初始化之后打开我们的head视图<a href="http://localhost:9200/_plugin/head/可以看到我们的索引创建成功，浏览一下数据" target="_blank" rel="external">http://localhost:9200/_plugin/head/可以看到我们的索引创建成功，浏览一下数据</a><br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.tuchuang001.com/images/2017/05/09/85dc129ec4bdf0e7.jpg" alt="" title="">
+                    <img src="https://tuchuang001.com/images/2017/05/09/85dc129ec4bdf0e7.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure></p>
@@ -376,7 +376,7 @@
 <p>基本配置已经完成，可以手动更改数据库中的数据来测试是否会同步到elasticsearch<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.tuchuang001.com/images/2017/05/09/b67606047f499ecc.gif" alt="" title="">
+                    <img src="https://tuchuang001.com/images/2017/05/09/b67606047f499ecc.gif" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure><br>接下来就是调用elsearch的javaapi来做数据查询，恩就放到下一篇吧。。。</p>
@@ -435,7 +435,7 @@
     <link href="http://imice.me/2017/04/13/zhengze/"/>
     <id>http://imice.me/2017/04/13/zhengze/</id>
     <published>2017-04-13T10:16:31.934Z</published>
-    <updated>2017-05-09T07:45:21.204Z</updated>
+    <updated>2017-10-12T02:10:12.471Z</updated>
     
     <content type="html"><![CDATA[<p><strong>正则表达式匹配url</strong></p>
 <blockquote>
@@ -448,7 +448,7 @@
 <p>页面效果如图：<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.tuchuang001.com/images/2017/05/09/84f18f528a2d2c11.jpg" alt="" title="">
+                    <img src="https://tuchuang001.com/images/2017/05/09/84f18f528a2d2c11.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure><br>头部选择不匹配，如有需要可以在头部加上<code>((ht|f)tps?):\/\/</code></p>
